@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install openldap-servers openldap-clients git -y &>/dev/null
+apt install openldap-servers openldap-clients git -y &>/dev/null
  cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG 
  chown ldap. /var/lib/ldap/DB_CONFIG 
 systemctl start slapd 
@@ -17,7 +17,7 @@ ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
 ldapmodify -Y EXTERNAL -H ldapi:/// -f chdomain.ldif 
 ldapadd -x -D cn=admin,dc=users,dc=automations,dc=com -W -f basedomain.ldif 
 
-yum install httpd php php-ldap -y &>/dev/null
+apt install httpd php php-ldap -y &>/dev/null
 cd /var/www/html
 tar xf /opt/openldap/lam.tgz
 systemctl restart httpd
